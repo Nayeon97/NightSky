@@ -10,16 +10,15 @@ import {
 } from '../../styles/NoteStyle';
 import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms';
+import useCheckLogin from '../../hook/useCheckLogin';
 
 const Note = () => {
   const navigate = useNavigate();
   const [tagOpen, setTagOpen] = useState(false);
-  const user = useRecoilValue(userState);
+  const userLoginState = useCheckLogin();
 
   useEffect(() => {
-    if (user.length === 0) {
+    if (userLoginState === false) {
       snackBar('error', '로그인 후 사용해주세요.');
       navigate('/login');
     }
