@@ -11,8 +11,7 @@ import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms';
+import useCheckLogin from '../../hook/useCheckLogin';
 
 export const emotionText = (e) => {
   switch (e) {
@@ -43,11 +42,11 @@ const Report = () => {
   const [challenge, setChallenge] = useState([]);
   const navigate = useNavigate();
   const [getEmotion, setGetEmotion] = useState('');
-  const user = useRecoilValue(userState);
+  const userLoginState = useCheckLogin();
   const today = moment();
 
   useEffect(() => {
-    if (user.length === 0) {
+    if (userLoginState === false) {
       snackBar('error', '로그인 후 사용해주세요.');
       navigate('/login');
     } else {

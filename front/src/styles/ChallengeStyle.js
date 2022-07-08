@@ -30,14 +30,6 @@ export const ChallengeCardWrapper = styled.div`
   align-items: center;
 `;
 
-export const BattlePassContainer = styled.div`
-  overflow: hidden;
-  position: relative;
-  margin-left: ${(props) => `${props.margin}rem`};
-  margin-right: ${(props) => `${props.margin}rem`};
-  width: ${(props) => `${props.containerWdith}rem`};
-`;
-
 export const TitleWrap = styled.div`
   display: flex;
   font-size: 40px;

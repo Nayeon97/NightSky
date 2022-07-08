@@ -1,13 +1,5 @@
 import styled from 'styled-components';
 
-export const MainContext = styled.div`
-  font-family: 'EliceDigitalBaeum_Bold';
-  font-size: 1.8rem;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  margin-left: 95px;
-`;
-
 export const ExplainContext = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1.2rem;
@@ -19,17 +11,6 @@ export const ExplainContext = styled.div`
     color: #4577ba;
     background-image: linear-gradient(transparent 60%, #a5d8ff 40%);
   }
-`;
-
-export const MainTitle = styled.h1`
-  font-family: 'EliceDigitalBaeum_Bold';
-  font-size: 1.8rem;
-`;
-
-export const SubTitle = styled.h2`
-  font-size: 1.4rem;
-  font-family: 'EliceDigitalBaeum_Bold';
-  color: ${(props) => (props.color == 'purple' ? '#3d2c8d' : '#e64980')};
 `;
 
 export const TextInput = styled.input`
