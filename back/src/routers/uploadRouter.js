@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import s3 from '../config/s3.js';
 import createUrl from '../utils/preSign.js';
+import * as status from '../utils/status.js';
+import loginRequired from '../middlewares/loginRequired.js';
 const uploadRouter = Router();
 
 /**
@@ -41,21 +43,17 @@ const uploadRouter = Router();
  *                   description: 이미지가 저장된 S3 주소
  *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}"
  */
-uploadRouter.get('/:file', (req, res, next) => {
+uploadRouter.get('/:file', loginRequired, (req, res, next) => {
   const { file } = req.params;
   const fileName = Date.now() + file;
-  try {
-    const url = createUrl(`diary/${fileName}`);
-  } catch (error) {
-    next(error);
-  }
+  const url = createUrl(`diary/${fileName}`);
   const imageUrl = `https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}`;
   const body = {
     success: true,
     url,
     imageUrl,
   };
-  res.status(201).json(body);
+  res.status(200).json(body);
 });
 
 uploadRouter.delete('/:file', async (req, res, next) => {

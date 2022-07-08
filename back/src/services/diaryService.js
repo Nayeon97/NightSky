@@ -1,4 +1,4 @@
-import { Diary } from "../db/index.js";
+import { Diary, User, Book } from '../db/index.js';
 //@ts-check
 export default class DiaryService {
   /**
@@ -8,17 +8,49 @@ export default class DiaryService {
    * @param {string} body.text - 일기 내용
    * @param {string} body.title - 일기 제목
    * @param {string} body.tag - 일기 태그 [ 주제 ]
+   * @param {string} body.emotion - 일기 감정
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
-  static async create({ userId, text, title, tag }) {
-    const newDiary = {
-      user_id: +userId,
-      text,
-      title,
-      tag,
-    };
-    const body = await Diary.create(newDiary);
-    return body;
+  static async create({ userId, text, title, tag, emotion }) {
+    const { daily_check: check } = await User.dailyCheck(userId);
+    if (check) {
+      throw Error('일기는 하루에 한번만 작성 가능합니다.');
+    }
+    try {
+      const TagCheck = await Book.findTag(userId, tag);
+      if (TagCheck == null) {
+        const newBook = {
+          user_id: +userId,
+          name: tag,
+        };
+        const book = await Book.createBook(newBook);
+        const newDiary = {
+          user_id: +userId,
+          text,
+          title,
+          tag,
+          emotion,
+          book_id: book.id,
+        };
+        const body = await Diary.create(newDiary);
+        const daily = await User.dailyUpdate(userId);
+        return body;
+      }
+      const { id: bookId } = TagCheck;
+      const newDiary = {
+        user_id: +userId,
+        text,
+        title,
+        tag,
+        emotion,
+        book_id: bookId,
+      };
+      const body = await Diary.create(newDiary);
+      const daily = await User.dailyUpdate(userId);
+      return body;
+    } catch (error) {
+      throw Error(`일기 작성 에러:${error.message}`);
+    }
   }
   /**
    * - 일기 삭제 Service 함수
@@ -39,12 +71,29 @@ export default class DiaryService {
   }
 
   /**
-   *  - 일기 목록 조회 Service 함수
-   * @param {number} userId - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
-   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   *  - 일기 목록 첫 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number,}>}
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
+    if (body.length > 0) {
+      body.push({ cursor: body[body.length - 1].id });
+    }
+    return body;
+  }
+
+  /**
+   * - 일기 목록 커서 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {number} cursor - 커서 위치
+   * @returns
+   */
+  static async secondReadList(userId, cursor) {
+    const body = await Diary.secondReadList(userId, cursor);
+    if (body.length >= 1) {
+      body.push({ cursor: body[body.length - 1].id });
+    }
     return body;
   }
 
@@ -75,20 +124,31 @@ export default class DiaryService {
   }
 
   /**
-   * - 유저가 가진 일기를 조회하기 위해 존재하는 유저인지 확인
-   * @param {number} userId - user의 고유 ID
-   */
-  static async userCheck(userId) {
-    const user = await Diary.userCheck(userId);
-    return user;
-  }
-
-  /**
    * - 유저가 가진 일기 중 랜덤으로 3개를 보여주는 함수
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async randomDiarys(userId) {
     const diarys = await Diary.randomDiarys(userId);
     return diarys;
+  }
+
+  /**
+   * - 일기를 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} search  -검색할 위치
+   * @param {string} word  - 검색할 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
+  static async searchList(userId, search, word) {
+    switch (search) {
+      case 'title':
+        return await Diary.searchTitle(userId, word);
+      case 'text':
+        return await Diary.searchText(userId, word);
+      case 'tag':
+        return await Diary.searchTag(userId, word);
+      case 'all':
+        return await Diary.searchAll(userId, word);
+    }
   }
 }

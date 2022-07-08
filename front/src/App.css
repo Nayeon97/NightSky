@@ -2,6 +2,11 @@
   height: 100%;
 }
 
+.toastui-editor-contents p {
+  font-size: 16px;
+  font-family: 'EliceDigitalBaeum';
+}
+
 /* font */
 @font-face {
   font-family: 'EliceDigitalBaeum_Bold';
@@ -20,8 +25,25 @@
 }
 
 @font-face {
-  font-family: 'KOHIBaeumOTF';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/KOHIBaeumOTF.woff')
+  font-family: 'MICEMyungjo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEMyungjo.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 캘린더 글씨체  & Nav 글씨체*/
+@font-face {
+  font-family: 'KyoboHand';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'IM_Hyemin-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Bold.woff2')
     format('woff');
   font-weight: normal;
   font-style: normal;

@@ -1,24 +1,24 @@
 import styled from 'styled-components';
 
 export const SocialBtn = styled.button`
-  position: relative;
   width: 4rem;
   height: 4rem;
-  border: none;
   background-color: transparent;
 `;
 
 export const Img = styled.img`
-  position: absolute;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 10rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 `;
 
 export const SocialLoginContainer = styled.div`
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 0.3rem;
+  grid-gap: 100px;
+  margin-top: 20px;
 `;
 
 export const LoginText = styled.div`
@@ -32,10 +32,10 @@ export const LoginInput = styled.input`
   display: inline-flex;
   width: 30rem;
   height: 3rem;
-  color: white;
+  color: black;
   background: transparent;
   padding: 1rem;
-  border: solid 1px #dbc7ff;
+  border: solid 1px white;
   border-radius: 1rem;
   outline: none;
   font-size: 1rem;

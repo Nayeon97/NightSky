@@ -13,14 +13,15 @@ const options = {
     },
     components: {
       securitySchemes: {
-        Authorization: {
-          type: "http",
-          scheme: "Bearer",
-          name: "Authorization",
-          bearerFormat: "JWT",
-          in: "header",
+        cookieAuth: {
+          type: "apiKey",
+          in: "cookie",
+          name: "connect.sid",
         },
       },
+    },
+    security: {
+      cookieAuth: [],
     },
   },
   swagger: "2.0",

@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 const option = {
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:5001/user/googlecomplete',
+  callbackURL: 'https://kdt-ai4-team12.elicecoding.com/api/user/googlecomplete',
   passReqToCallback: true,
 };
 
@@ -19,19 +19,20 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
   const result = await User.findUser({ email, social: 'google' });
   try {
     if (result) {
-      return done(null, profile);
+      return done(null, result);
     } else {
       const createdUser = await prisma.users.create({
         data: {
           email: email,
-          pw: process.env.LOCAL_PASSWORD,
+          pw: '1234',
           social: 'google',
+          name: '밤하늘',
         },
       });
-      return done(null, profile);
+      return done(null, createdUser);
     }
   } catch (error) {
-    return done(false, profile);
+    return done(false, result);
   }
 };
 export const GoogleStrategy = () => {

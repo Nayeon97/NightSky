@@ -3,7 +3,7 @@ import { KakaoStrategy } from "./kakaoStrategy.js";
 import { GoogleStrategy } from "./googleStrategy.js";
 import { LocalStrategy } from "./localStrategy.js";
 import { NaverStrategy } from "./naverStrategy.js";
-
+import { User } from "../db/index.js";
 export const passportStrategies = () => {
   passport.serializeUser((user, done) => {
     // Strategy 성공 시 호출됨

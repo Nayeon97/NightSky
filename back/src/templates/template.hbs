@@ -1,0 +1,192 @@
+<style>
+body
+{
+    color: #363942;
+    background-image: url(../images/ricepaper.png);
+}
+
+h1
+{
+    text-align: center;
+    font-variant: small-caps;
+    font-style: italic;
+    font-size: 3.5em;
+}
+
+h3
+{
+    text-align: center;
+    font-variant: small-caps;
+    line-height: .5em;
+}
+
+#menu
+{
+    /*Make a box with rounded corners.*/
+    border-radius: 15px; /*Give the box a light shadow.*/
+    box-shadow: 0px 0px 1px #000000; /*The width of the box must be a bit larger than the width of the paragraph.*/
+    position: fixed;
+}
+
+#menu ul
+{
+    margin: 0.5em;
+    padding: 0.5em;
+    list-style-type: none;
+    font-size: x-large;
+}
+
+#menu ul li
+{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#menu ul li a
+{
+    text-decoration: none;
+    color: #5C832F;
+}
+
+#menu ul li a:hover
+{
+    color: #284907;
+}
+
+#intro
+{
+    padding-bottom: 1em;
+}
+
+#intro p
+{
+    font-size: large;
+    width: 20em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+
+blockquote
+{
+    background-color: #FFF7FE;
+}
+
+blockquote p
+{
+    width: 21em;
+    text-indent: 0em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+/*
+    The "main" div and the <p> selectors took a lot of fiddling and are where most of the action occurs.  Ease of readability is paramount.
+*/
+
+#main
+{
+    /*Make a box with rounded corners.*/
+    border-radius: 15px; /*Give the box a light shadow.*/
+    box-shadow: 0px 0px 10px #000000; /*The width of the box must be a bit larger than the width of the paragraph.*/
+    width: 48.5em; /*The width setting, along with these margin settings, put the box in the center with the sides hugging the text.*/
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1em;
+    padding-bottom: 1em; /*Contrast is greater than outside the essay in order to focus the readers' attention.*/
+    background-color: #F0F8FF;
+    color: #382513;
+}
+
+#main hr
+{
+    width: 25%;
+}
+
+p
+{
+    /*Short lines mean that the eyes don't travel far in order to read.*/
+    width: 28em; /*There's very little padding so that the box hugs the paragraphs.  The lines of the box guide the eyes downward.*/
+    padding-top: 0.12em;
+    padding-bottom: 0.12em; /*Jagged right edges are unsightly, so I justify paragraphs.  Lines are short, so readability is unaffected.*/
+    text-align: justify; /*I try to imitate printed copy with the justified and indented paragraphs.*/
+    text-indent: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-top: 0; /*Between the short lines and the large letters, I'm trying to entice readers to go on.  "Just another line.  It's not much."*/
+    font-size: x-large;
+}
+
+/*
+    The extro tells how the essay was received, who linked to it, and any discussion on it.  I write the extro some time after publishing the essay.
+*/
+
+#extro
+{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#extro p
+{
+    font-size: large;
+    width: 20em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+
+#footer p
+{
+    padding: none;
+    font-size: smaller;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30em;
+}
+</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!--
+
+    Website and essay by Rudolf Winestock
+    Copyright © 2013 to present
+    All Rights Reserved
+    contact: rudolf@winestockwebdesign.com
+
+-->
+<!--
+    I'm flattered that you're taking the time to read my code.  I reserve copyright in order to cover my bases, but feel free to learn from it.  Reading other peoples code was part of the way that I learned.  The Readability addon (http://www.readability.com/) gives much of the inspiration for the design of my essays.  Since so many people use it to make websites bearable, I figured that I would cut out the middle man.  Don't forget to read the CSS source.
+-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="Rudolf Winestock - rudolf@winestockwebdesign.com" />
+    <meta name="copyright" content="Copyright 2013 to present - All Rights Reserved" />
+    <meta name="robots" content="all, index, follow" />
+    <title>{{title}}</title>
+    <link rel="Stylesheet" href="essay.css" type="text/css" />
+</head>
+<body>
+    <h1>{{title}}</h1>
+    <h3>{{user}}</h3>
+    <h3>{{tag}}</h3>
+    <h4 style = "text-align: center;
+    font-variant: small-caps;
+    font-style: italic;
+    font-size: 1em;">{{date}}</h4>
+    </div>
+
+    <div id="main" style="font-size : 20px; margin : auto; text-align : left">
+      <p>{{text}}</p>
+    </div>
+    <div style = "width :300px; height : 300px; margin : auto";>
+    </div>
+    <div style = "text-align: center; margin : auto">
+        @Copyright 2022 Elice Team 12
+    </div>
+</body>
+</html>

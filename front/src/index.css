@@ -1,7 +1,7 @@
 /* height: 100% */
 html,
 body,
-#app,
-#app > div {
+#root,
+.App {
   height: 100%;
 }

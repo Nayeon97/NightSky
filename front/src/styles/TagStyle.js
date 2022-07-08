@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export const TagBox = styled.div`
   display: flex;
   align-items: center;
-  min-height: 3rem;
-  width: 30rem;
-  margin: 0.5rem;
-  padding: 0 1rem;
+  min-height: 20pxs;
+  width: 700px;
+  padding: 0 10px;
+  margin: 13px 10px;
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-radius: 10px;
   &:focus-within {
     border-color: ${({ theme }) => theme.color.mainPurple};
   }
@@ -16,13 +16,13 @@ export const TagBox = styled.div`
 
 export const TagItem = styled.div`
   align-items: center;
-  margin: 0.3rem;
-  padding: 0.5rem;
+  margin: 2px;
+  padding: 9px;
   background-color: #f3f0ff;
   opacity: 0.7;
   border-radius: 5px;
   color: ${({ theme }) => theme.color.mainPurple};
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   &:hover {
@@ -35,7 +35,8 @@ export const TagItem = styled.div`
 `;
 
 export const TagInput = styled.input`
-  min-width: 5rem;
+  min-width: 300px;
+  font-size: 17px;
   background: transparent;
   border: none;
   outline: none;

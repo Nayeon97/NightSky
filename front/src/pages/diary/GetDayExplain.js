@@ -1,5 +1,4 @@
 const GetDayExplain = (props) => {
-  console.log(props);
   let answer = '';
   switch (props) {
     case '월':
@@ -24,7 +23,6 @@ const GetDayExplain = (props) => {
       answer = '주말의 끝 일요일 ';
       break;
     default:
-      console.log('error');
   }
   return answer;
 };

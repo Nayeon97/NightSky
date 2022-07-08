@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { tagState } from '../../atoms';
 import { TagBox, TagItem, TagInput } from '../../styles/TagStyle';
+import { WaringText } from '../../styles/DiaryStyle';
 
-const Tag = () => {
+const Tag = (props) => {
   const [tagItem, setTagItem] = useState('');
-  const [inputTag, setInputTag] = useRecoilState(tagState);
+  const { inputTag, setInputTag } = props;
+  const [warningOpen, setWarningOpen] = useState(false);
+
+  const checkTagLength = (event) => {
+    if (event.target.value.length > 5) {
+      setWarningOpen(true);
+    } else {
+      setWarningOpen(false);
+      setTagItem(event.target.value);
+    }
+  };
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
@@ -38,11 +47,12 @@ const Tag = () => {
               : '태그를 작성해주세요😊'
           }
           tabIndex={2}
-          onChange={(e) => setTagItem(e.target.value)}
+          onChange={checkTagLength}
           value={tagItem}
           onKeyPress={onKeyPress}
         />
       </TagBox>
+      {warningOpen && <WaringText>태그는 5자 제한이에요 ㅠ-ㅠ </WaringText>}
     </>
   );
 };

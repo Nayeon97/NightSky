@@ -18,6 +18,8 @@ export const STATUS_200_OK = 200;
  */
 export const STATUS_201_CREATED = 201;
 
+export const STATUS_204_NO_RESOURCE = 204;
+
 /** The server cannot or will not process the request due to something that is
  * perceived to be a client error (e.g., malformed request syntax, invalid
  * request message framing, or deceptive request routing).

@@ -4,10 +4,14 @@ const loginRouter = Router();
 
 loginRouter.post(
   "/local",
-  passport.authenticate("local", {
-    failureRedirect: "/user/failed",
-    successRedirect: "/user/localcomplete",
-  }),
+  passport.authenticate("local"),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  },
   (err) => {
     console.log(err);
   }

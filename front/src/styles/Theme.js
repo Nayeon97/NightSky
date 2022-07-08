@@ -21,8 +21,8 @@ const deviceSizes = {
 };
 
 const device = {
-  mobileL: `only screen and (max-width: ${deviceSizes.mobileL})`,
-  tabletL: `only screen and (max-width: ${deviceSizes.tabletL})`,
+  mobileL: `only screen and (min-width: ${deviceSizes.mobileL})`,
+  tabletL: `only screen and (min-width: ${deviceSizes.tabletL})`,
 };
 
 const theme = {

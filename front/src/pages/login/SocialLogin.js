@@ -1,15 +1,19 @@
-import images from '../../assets/images';
-import { SocialBtn, Img } from '../../styles/LoginStyle';
+import images from "../../assets/images";
+import { SocialBtn, Img } from "../../styles/LoginStyle";
 
 const SocialLogin = () => {
+  const googleUrl = process.env.REACT_APP_GOOGLE_URL;
+  const kakaoUrl = process.env.REACT_APP_KAKAO_URL;
+  const naverUrl = process.env.REACT_APP_NAVER_URL;
+
   const clickGoogle = () => {
-    window.open('http://localhost:5001/login/google', '_self');
+    window.open(`${googleUrl}`, "_self");
   };
   const clickKakao = () => {
-    window.open('http://localhost:5001/login/kakao', '_self');
+    window.open(`${kakaoUrl}`, "_self");
   };
   const clickNaver = () => {
-    window.open('http://localhost:5001/login/naver', '_self');
+    window.open(`${naverUrl}`, "_self");
   };
 
   return (

@@ -6,6 +6,7 @@ import Theme from './styles/Theme';
 import App from './App';
 import './index.css';
 import GlobalStyle from './styles/GlobalStyle';
+import 'react-toastify/dist/ReactToastify.css';
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./mocks/browser');
