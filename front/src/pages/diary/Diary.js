@@ -7,16 +7,17 @@ import Nav from '../../components/nav/Nav';
 import { DiaryContext } from '../../styles/DiaryStyle';
 import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
-import useCheckLogin from '../../hook/useCheckLogin';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 
 const Diary = () => {
   const [title, setTitle] = useState('');
   const [inputTag, setInputTag] = useState('');
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
-  const userLoginState = useCheckLogin();
 
   useEffect(() => {
-    if (userLoginState === false) {
+    if (user.length === 0) {
       snackBar('error', '로그인 후 사용해주세요.');
       navigate('/login');
     }

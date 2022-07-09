@@ -11,7 +11,8 @@ import * as Api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import ChallengeInfo from './ChallengeInfo';
 import snackBar from '../../components/snackBar';
-import useCheckLogin from '../../hook/useCheckLogin';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 
 const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
@@ -20,12 +21,12 @@ const Challenge = () => {
   const [openCompletedChallenge, setOpenCompletedChallenge] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const userLoginState = useCheckLogin();
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userLoginState === false) {
-      snackBar('error', '로그인 후 사용해주세요.');
+    if (user.length === 0) {
+      snackBar('error', '로그인 후 사용해주세요');
       navigate('/login');
     } else {
       getChallenge();
