@@ -25,6 +25,18 @@ export const emotionState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const activityState = atom({
+  key: 'activityState',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const fortuneState = atom({
+  key: 'fortuneState',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const openEmotionState = atom({
   key: 'openEmotionState',
   default: false,

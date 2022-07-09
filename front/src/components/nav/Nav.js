@@ -12,6 +12,8 @@ import {
   randomListState,
   openEmotionState,
   countEmotionState,
+  activityState,
+  fortuneState,
 } from '../../atoms';
 import snackBar from '../snackBar';
 
@@ -24,6 +26,8 @@ const Nav = () => {
   const challenge = useResetRecoilState(challengeState);
   const openEmotion = useResetRecoilState(openEmotionState);
   const countEmotion = useResetRecoilState(countEmotionState);
+  const activity = useResetRecoilState(activityState);
+  const fortune = useResetRecoilState(fortuneState);
 
   const logoutHandler = async () => {
     try {
@@ -35,6 +39,8 @@ const Nav = () => {
         challenge();
         openEmotion();
         countEmotion();
+        activity();
+        fortune();
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');
