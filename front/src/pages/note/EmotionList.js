@@ -77,7 +77,6 @@ const EmotionList = () => {
   };
 
   const handleChange = (e) => {
-    console.log('select');
     setSelect(e.target.value);
   };
 

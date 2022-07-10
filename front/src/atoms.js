@@ -17,6 +17,7 @@ export const challengeState = atom({
 export const randomListState = atom({
   key: 'randomListState',
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const emotionState = atom({
