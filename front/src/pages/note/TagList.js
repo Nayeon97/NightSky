@@ -15,6 +15,9 @@ const TagList = () => {
     try {
       const res = await Api.get('book/list');
       setTagList(res.data);
+      if (res.data.length === 0) {
+        snackBar('info', '작성한 일기가 없습니다.');
+      }
     } catch (err) {}
   };
 

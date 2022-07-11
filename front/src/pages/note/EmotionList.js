@@ -81,7 +81,9 @@ const EmotionList = () => {
   };
 
   const onKeyPress = (e) => {
-    if (e.target.value.length !== 0 && e.key === 'Enter') {
+    if (select.length === 0 || search.length === 0) {
+      snackBar('info', '검색어를 입력해주세요.');
+    } else {
       clickSearch();
     }
   };
