@@ -1,4 +1,5 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+import * as Api from './api';
 import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
@@ -6,7 +7,21 @@ const { persistAtom } = recoilPersist();
 export const userState = atom({
   key: 'userState',
   default: [],
-  effects_UNSTABLE: [persistAtom],
+});
+
+export const getUserSelector = selector({
+  key: 'user/get',
+  get: async () => {
+    try {
+      const data = await Api.get('user/info');
+      return data.data;
+    } catch (err) {
+      throw new err();
+    }
+  },
+  set: ({ set }, newValue) => {
+    set(userState, newValue);
+  },
 });
 
 export const challengeState = atom({

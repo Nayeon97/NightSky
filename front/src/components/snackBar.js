@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-const snackBar = (types, text) => {
+const SnackBar = (types, text) => {
   switch (types) {
     case 'sucess':
       return toast.success(text);
@@ -15,4 +15,4 @@ const snackBar = (types, text) => {
   }
 };
 
-export default snackBar;
+export default SnackBar;

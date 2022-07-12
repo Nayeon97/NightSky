@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import * as Api from '../../api';
 import TagBook from './TagBook';
 import snackBar from '../../components/snackBar';
+import SearchBar from '../../components/searchBar';
 
 const TagList = () => {
   const [tagList, setTagList] = useState([]);
+  const [searchTarget, setSearchTarget] = useState([]);
+  const [search, setSearch] = useState('');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getTagList();
@@ -21,11 +25,45 @@ const TagList = () => {
     } catch (err) {}
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      if (search.length === 0) {
+        snackBar('info', '검색어를 입력해주세요.');
+        setOpen(false);
+      } else {
+        getSearchResult();
+      }
+    }
+  };
+
+  const getSearchResult = async () => {
+    try {
+      const res = await Api.get(`diary/search/?tag=${search}`);
+      if (res.data.length === 0) {
+        snackBar('warning', '검색 키워드와 일치하는 결과가 없습니다.');
+        setOpen(false);
+      } else {
+        const tag = tagList.filter((it) => it.name === search);
+        setSearchTarget(tag);
+        setOpen(true);
+      }
+    } catch (err) {
+      snackBar('error', '에러가 발생하였습니다.');
+    }
+  };
+
   return (
     <TagContainer>
-      <p>해당 태그의 일기 리스트는 책 태그를 클릭해주세요.</p>
+      <div>
+        <p>해당 태그의 일기 리스트는 책 태그를 클릭해주세요.</p>
+        <SearchBar
+          setSearch={setSearch}
+          search={search}
+          onKeyPress={onKeyPress}
+        />
+      </div>
       <TagListContainer>
-        {tagList.map((it) => {
+        {(open ? searchTarget : tagList).map((it) => {
           if (it.name.length !== 0) {
             return <TagBook it={it} key={it.id} />;
           }

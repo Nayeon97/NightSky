@@ -34,12 +34,10 @@ const Login = () => {
   const isFormValid = isEmailValid && isPasswordValid;
 
   const navigate = useNavigate();
-
   const openEmail = email.length === 0 ? false : true;
 
   const clickLogin = async (e) => {
     e.preventDefault();
-
     try {
       const res = await Api.post('login/local', {
         email,

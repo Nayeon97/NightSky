@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputLabel, FormControl, NativeSelect } from '@mui/material';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Api from '../../api';
 import {
   EmotionCard,
@@ -14,12 +12,15 @@ import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 import snackBar from '../../components/snackBar';
 import changeUtc from '../../utils/changeUtc';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from '../../components/searchBar';
 
 const SEARCH = [
-  { value: 'title', name: '⭐️ 제목', id: 1 },
-  { value: 'tag', name: '🔖 태그 ', id: 2 },
-  { value: 'text', name: '🗒 내용', id: 3 },
-  { value: 'all', name: '📓 통합', id: 4 },
+  { value: 'title', name: '제목', id: 1 },
+  { value: 'tag', name: '태그 ', id: 2 },
+  { value: 'text', name: '내용', id: 3 },
+  { value: 'all', name: ' 통합', id: 4 },
 ];
 
 const EmotionList = () => {
@@ -81,26 +82,25 @@ const EmotionList = () => {
   };
 
   const onKeyPress = (e) => {
-    if (select.length === 0 || search.length === 0) {
-      snackBar('info', '검색어를 입력해주세요.');
-    } else {
-      clickSearch();
+    if (e.key === 'Enter') {
+      if (select.length === 0 || search.length === 0) {
+        snackBar('info', '검색어를 입력해주세요.');
+      } else {
+        getSearchResult();
+      }
     }
   };
 
-  const clickSearch = async () => {
-    if (select.length !== 0) {
-      try {
-        const res = await Api.get(`diary/search/?${select}=${search}`);
-        if (res.data.length === 0) {
-          snackBar('warning', '검색 키워드와 일치하는 결과가 없습니다.');
-        } else {
-          setDiaryList(res.data);
-        }
-      } catch (err) {
-        snackBar('error', '에러가 발생하였습니다.');
+  const getSearchResult = async () => {
+    try {
+      const res = await Api.get(`diary/search/?${select}=${search}`);
+      if (res.data.length === 0) {
+        snackBar('warning', '검색 키워드와 일치하는 결과가 없습니다.');
+      } else {
+        setDiaryList(res.data);
       }
-    } else {
+    } catch (err) {
+      snackBar('error', '에러가 발생하였습니다.');
     }
   };
 
@@ -108,9 +108,8 @@ const EmotionList = () => {
     <>
       <SearchContainer>
         <FormControl>
-          <InputLabel>선택</InputLabel>
-          <NativeSelect onChange={handleChange}>
-            <option value=""></option>
+          <select onChange={handleChange}>
+            <option value="">전체</option>
             {SEARCH.map((it) => {
               return (
                 <option value={it.value} key={it.index}>
@@ -118,26 +117,17 @@ const EmotionList = () => {
                 </option>
               );
             })}
-          </NativeSelect>
+          </select>
         </FormControl>
-        <SearchWrapper>
-          <input
-            type="text"
-            placeholder="검색어 입력"
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-            onKeyPress={onKeyPress}
-          />
-          <IconWrapper onClick={clickSearch}>
-            <FontAwesomeIcon icon={faSearch} className="user" />
-          </IconWrapper>
-        </SearchWrapper>
+        <SearchBar
+          setSearch={setSearch}
+          search={search}
+          onKeyPress={onKeyPress}
+        />
       </SearchContainer>
       <EmotionCardContainer>
         {diaryList.map((it) => {
           let date = changeUtc(it.date).viewDate;
-
           return (
             <EmotionCard
               onClick={openCard}
@@ -163,39 +153,6 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: end;
   margin-bottom: 20px;
-`;
-
-const SearchWrapper = styled.div`
-  position: relative;
-  height: 30px;
-  margin-bottom: 20px;
-  input {
-    display: inline-flex;
-    width: 300px;
-    height: 50px;
-    color: black;
-    background: white;
-    padding: 0px 30px;
-    border: none;
-    border-radius: 1rem;
-    outline: none;
-    font-size: 1rem;
-    cursor: text;
-    &:focus::-webkit-input-placeholder {
-      color: #748ffc;
-    }
-  }
-`;
-
-const IconWrapper = styled.div`
-  color: #808080;
-  font-size: 20px;
-  position: absolute;
-  top: 15px;
-  right: 10px;
-  left: 10px;
-  width: 10px;
-  cursor: pointer;
 `;
 
 const EmotionCardContainer = styled.div`
