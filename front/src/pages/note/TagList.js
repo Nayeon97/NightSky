@@ -37,18 +37,13 @@ const TagList = () => {
   };
 
   const getSearchResult = async () => {
-    try {
-      const res = await Api.get(`diary/search/?tag=${search}`);
-      if (res.data.length === 0) {
-        snackBar('warning', '검색 키워드와 일치하는 결과가 없습니다.');
-        setOpen(false);
-      } else {
-        const tag = tagList.filter((it) => it.name === search);
-        setSearchTarget(tag);
-        setOpen(true);
-      }
-    } catch (err) {
-      snackBar('error', '에러가 발생하였습니다.');
+    const tag = tagList.filter((it) => it.name === search);
+    if (tag == '') {
+      snackBar('info', '키워드에 해당하는 태그가 없습니다.');
+      setOpen(false);
+    } else {
+      setSearchTarget(tag);
+      setOpen(true);
     }
   };
 
@@ -60,6 +55,7 @@ const TagList = () => {
           setSearch={setSearch}
           search={search}
           onKeyPress={onKeyPress}
+          placeholder={'키워드를 입력해주세요.'}
         />
       </div>
       <TagListContainer>
