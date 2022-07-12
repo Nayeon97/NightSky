@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InputLabel, FormControl, NativeSelect } from '@mui/material';
 import * as Api from '../../api';
 import {
   EmotionCard,
@@ -12,15 +11,13 @@ import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 import snackBar from '../../components/snackBar';
 import changeUtc from '../../utils/changeUtc';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../../components/searchBar';
 
 const SEARCH = [
-  { value: 'title', name: '제목', id: 1 },
+  { value: 'all', name: ' 전체', id: 1 },
   { value: 'tag', name: '태그 ', id: 2 },
   { value: 'text', name: '내용', id: 3 },
-  { value: 'all', name: ' 통합', id: 4 },
+  { value: 'title', name: '제목', id: 4 },
 ];
 
 const EmotionList = () => {
@@ -67,7 +64,7 @@ const EmotionList = () => {
           setStop(true);
         }
       } catch (err) {
-        snackBar('info', '작성한 일기가 없습니다. ');
+        snackBar('info', '더 이상 작성한 일기가 없습니다. ');
       }
     }
   };
@@ -107,18 +104,16 @@ const EmotionList = () => {
   return (
     <>
       <SearchContainer>
-        <FormControl>
-          <select onChange={handleChange}>
-            <option value="">전체</option>
-            {SEARCH.map((it) => {
-              return (
-                <option value={it.value} key={it.index}>
-                  {it.name}
-                </option>
-              );
-            })}
-          </select>
-        </FormControl>
+        <SelectBar onChange={handleChange}>
+          <option value="">선택</option>
+          {SEARCH.map((it) => {
+            return (
+              <option value={it.value} key={it.index}>
+                {it.name}
+              </option>
+            );
+          })}
+        </SelectBar>
         <SearchBar
           setSearch={setSearch}
           search={search}
@@ -159,4 +154,15 @@ const EmotionCardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
+`;
+
+const SelectBar = styled.select`
+  width: 100px;
+  height: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  background-color: transparent;
+  font-size: 15px;
+  outline: none !important;
 `;

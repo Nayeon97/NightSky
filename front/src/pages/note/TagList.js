@@ -36,7 +36,7 @@ const TagList = () => {
     }
   };
 
-  const getSearchResult = async () => {
+  const getSearchResult = () => {
     const tag = tagList.filter((it) => it.name === search);
     if (tag == '') {
       snackBar('info', '키워드에 해당하는 태그가 없습니다.');
@@ -49,15 +49,15 @@ const TagList = () => {
 
   return (
     <TagContainer>
-      <div>
-        <p>해당 태그의 일기 리스트는 책 태그를 클릭해주세요.</p>
+      <SearchContainer>
+        <span>해당 태그의 일기 리스트는 책 태그를 클릭해주세요.</span>
         <SearchBar
           setSearch={setSearch}
           search={search}
           onKeyPress={onKeyPress}
           placeholder={'키워드를 입력해주세요.'}
         />
-      </div>
+      </SearchContainer>
       <TagListContainer>
         {(open ? searchTarget : tagList).map((it) => {
           if (it.name.length !== 0) {
@@ -78,6 +78,15 @@ const TagListContainer = styled.div`
 
 const TagContainer = styled.div`
   color: gray;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  span {
+    margin-top: 10px;
+    color: #1864ab;
+  }
 `;
 
 export default TagList;
