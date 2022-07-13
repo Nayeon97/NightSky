@@ -40,6 +40,7 @@ const Challenge = () => {
   const getChallenge = async () => {
     try {
       const res = await Api.get('challenge');
+
       if (res.data === false) {
         snackBar('error', '로그인 후 사용해주세요');
         navigate('/login');

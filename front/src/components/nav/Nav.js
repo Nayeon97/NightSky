@@ -49,7 +49,6 @@ const Nav = () => {
     } catch (error) {
       if (error.response) {
         const { data } = error.response;
-        console.error('data : ', data);
         navigate('/');
       }
     }

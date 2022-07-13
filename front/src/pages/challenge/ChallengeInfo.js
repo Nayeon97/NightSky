@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import images from '../../assets/images';
 import {
   CardsContainer,
