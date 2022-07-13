@@ -14,18 +14,19 @@ const EmotionGraph = (props) => {
       data.normal,
     ], // data.happy, data.sad, data.angry
     options: {
+      colors: [
+        '#FFEC99',
+        '#A5D8FF',
+        '#FFADAD',
+        '#BDB2FF',
+        '#FFD6A5',
+        '#D8F5A2',
+      ],
+      labels: ['행복', '슬픔', '분노', '놀람', '불안', '평범'],
       plotOptions: {
         pie: {
           expandOnClick: false,
           donut: {
-            // hollow: {
-            //   margin: 15,
-            //   size: '70%',
-            //   image: '../../css/images/a-icon.jpg',
-            //   imageWidth: 64,
-            //   imageHeight: 64,
-            //   imageClipped: false
-            // },
             labels: {
               show: true,
               total: {
@@ -42,16 +43,6 @@ const EmotionGraph = (props) => {
                 colors: ['#f68b42'], // 표 색상 지정
               },
             },
-            fill: {
-              colors: [
-                '#FFEC99',
-                '#A5D8FF',
-                '#FFD6A5',
-                '#CED4DA',
-                '#FFADAD',
-                '#D8F5A2',
-              ],
-            },
           },
         },
       },
@@ -59,7 +50,16 @@ const EmotionGraph = (props) => {
         text: '',
         align: 'left',
       },
-      labels: ['행복', '슬픔', '화남', '놀람', '불안', '보통'],
+      fill: {
+        colors: [
+          '#FFEC99',
+          '#A5D8FF',
+          '#FFADAD',
+          '#BDB2FF',
+          '#FFD6A5',
+          '#D8F5A2',
+        ],
+      },
     },
   };
   return (
