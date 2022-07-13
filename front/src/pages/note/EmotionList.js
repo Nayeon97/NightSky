@@ -7,7 +7,6 @@ import {
   DiaryDate,
   DateWrapper,
 } from '../../styles/NoteStyle';
-import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 import snackBar from '../../components/snackBar';
 import changeUtc from '../../utils/changeUtc';
@@ -24,44 +23,37 @@ const EmotionList = () => {
   const navigate = useNavigate();
   const [diaryList, setDiaryList] = useState([]);
   const [cursor, setCursor] = useState('');
-  const [isLoaded, setIsLoaded] = useState(true); // Load 중인지 판별
+  const [isLoading, setLoading] = useState(false);
   const [stop, setStop] = useState(false);
   const [select, setSelect] = useState('');
   const [search, setSearch] = useState('');
+  const [target, setTarget] = useState(null); // target
 
   useEffect(() => {
-    if (isLoaded && !stop) {
-      getList();
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(getList, {
+        threshold: 0.7,
+      });
+      observer.observe(target);
     }
-  }, [isLoaded]);
+    return () => observer && observer.disconnect();
+  }, [target]);
 
-  useEffect(() => {
-    window.addEventListener(
-      'scroll',
-      function (event) {
-        const res = handleScroll(event);
-        if (res === true) {
-          setIsLoaded(true);
-        }
-      },
-      false
-    );
-  }, []);
-
-  const getList = async () => {
-    if (isLoaded === true) {
+  const getList = async ([entry]) => {
+    if (entry.isIntersecting && !stop) {
       try {
+        setLoading(true);
         const res = await Api.get(`diary/list/?cursor=${cursor}`);
-        if (diaryList.length !== 0 && diaryList[9].id === res.data[0].id) {
-          return snackBar('warning', '잘못된 요청입니다.');
-        }
-        const length = res.data.length;
-        const sliceData = res.data.slice(0, length - 1);
-        setCursor(res.data.slice(-1)[0].cursor);
-        setDiaryList((data) => [...data, ...sliceData]);
-        setIsLoaded(false);
-        if (length < 10) {
+        if (res.data.length === 0) {
           setStop(true);
+          setLoading(false);
+        } else {
+          const length = res.data.length;
+          const sliceData = res.data.slice(0, length - 1);
+          setCursor(res.data.slice(-1)[0].cursor);
+          setDiaryList((data) => [...data, ...sliceData]);
+          setLoading(false);
         }
       } catch (err) {
         snackBar('info', '더 이상 작성한 일기가 없습니다. ');
@@ -81,7 +73,7 @@ const EmotionList = () => {
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
       if (select.length === 0 || search.length === 0) {
-        snackBar('info', '검색어를 입력해주세요.');
+        snackBar('info', '검색어를  선택/입력 해주세요.');
       } else {
         getSearchResult();
       }
@@ -138,6 +130,7 @@ const EmotionList = () => {
           );
         })}
       </EmotionCardContainer>
+      {isLoading ? <div>loading</div> : stop ? '' : <div ref={setTarget}></div>}
     </>
   );
 };

@@ -7,6 +7,7 @@ const { persistAtom } = recoilPersist();
 export const userState = atom({
   key: 'userState',
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const getUserSelector = selector({
