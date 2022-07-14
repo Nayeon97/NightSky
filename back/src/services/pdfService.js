@@ -37,7 +37,9 @@ class pdfService {
     const emotion = diary.emotion;
     let date = String(diary.date);
     date = date.slice(0, 15);
-    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: [ '--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote' ] });
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disabled-setupid-sandbox'],
+    });
     const page = await browser.newPage();
     const filename = 'myResume.pdf';
     const content = await compile('template', {
