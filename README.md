@@ -52,6 +52,7 @@
 |  배포    |   `Nginx` `Docker` `Docker-compose`   |
 
 ### ⚙️ 아키텍처
-![project](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/51911495-4aee-497e-996e-751d487da000/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220714%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220714T135222Z&X-Amz-Expires=86400&X-Amz-Signature=9f3ee27112bcf4d008cbce030d8e4eb855f6c991d76e3c8f76e8f9e0b2eeefe9&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![image](https://user-images.githubusercontent.com/89979344/179338664-348564c0-676e-4df1-81ec-711c5c6cc9a2.png)
+
 
 
