@@ -29,6 +29,7 @@ const EmotionList = () => {
   const [search, setSearch] = useState('');
   const [target, setTarget] = useState(null); // target
 
+  // 
   useEffect(() => {
     let observer;
     if (target) {
