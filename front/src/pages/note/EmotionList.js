@@ -29,7 +29,7 @@ const EmotionList = () => {
   const [search, setSearch] = useState('');
   const [target, setTarget] = useState(null); // target
 
-  // 
+  //  확인...
   useEffect(() => {
     let observer;
     if (target) {
